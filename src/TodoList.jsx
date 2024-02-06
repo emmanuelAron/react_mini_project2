@@ -1,44 +1,39 @@
 import { useState } from "react";
-
 import data from "../data.json"
+import Task from "./Task.jsx"
 
-function TodoList() {
+function TodoList(){
+    const [ tasksToDisplay, setTaskToDisplay ] = useState(data)
+    let task = "";
     
-    const [ taskDisplay, setTaskDisplay ] = useState(data)
-    //    function deleteTask(task)  {
-    //     const newlist = taskDisplay.filter((taskObj )=> {
-    //         return taskObj.id !== task;
-    //     } );
-    //     setTaskDisplay(newlist);
-    //    }
-        const deleteTask1 = (task) => {
-        const newList = taskDisplay.filter((taskObj) => {
-            return taskObj.id !== task;
+    const deleteTask = (taskId) => {
+        const newList = tasksToDisplay.filter((taskObj) => {
+            return taskObj.id !== taskId;
         });
-        setTaskDisplay(newList);
-    }
-        
-
-
-      return  data.map((todolistDetails, index, arr) => {
-            return (
-                <section key={todolistDetails.id} className = 'TodoList'>
-               
-               
-                <div  className="todo-line">
-                    <h2> Task : {todolistDetails.task} </h2>
-                    <p className="condition"> Condition: {todolistDetails.completed ? 
-                    <img className="correct" src="src\Flat_tick_icon.svg"></img> : 
-                    <img className="correct" src="src\x.png"></img> } 
-                    <button onClick={() => { deleteTask1(taskDisplay)  }}> Delete </button>
-                    </p>
-                </div>
-                </section>
-            )
-
-        }
-        
-        )
+        setTaskToDisplay(newList);
     }
 
-     export default TodoList;
+    return(
+        <section className="TodoList">
+            {tasksToDisplay.map( (taskObj) => {
+                return(
+                    <Task key={taskObj.id} task={taskObj} deleteTask={deleteTask} />
+                    // <div key={taskObj.id} className="movie card">
+                    //     <h2> Task : {taskObj.task} </h2>
+                    //     <p className="condition"> Condition: 
+                    //     {
+                    //     taskObj.completed ? 
+                    //     <img className="correct" src="src/Flat_tick_icon.svg"></img> : 
+                    //     <img className="correct" src="src/x.png"></img> 
+                    //     } 
+                    //     </p>
+                    //     <button onClick={() => {deleteTask(taskObj.id)}}>Delete</button>
+                    // </div>
+                );
+            })}
+
+        </section>
+    );
+}
+
+export default TodoList;
