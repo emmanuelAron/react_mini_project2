@@ -5,7 +5,7 @@ import Task from "./Task.jsx"
 function TodoList(){
     const [ tasksToDisplay, setTaskToDisplay ] = useState(data)
     let task = "";
-    
+    //move deleteTask ?
     const deleteTask = (taskId) => {
         const newList = tasksToDisplay.filter((taskObj) => {
             return taskObj.id !== taskId;
